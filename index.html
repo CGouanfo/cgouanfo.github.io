@@ -89,21 +89,32 @@
 
 				<!-- Three -->
 					<section id="three">
-						<h2>Get In Touch</h2>
-						<div class="row">
-							<div class="col-8 col-12-small">
-								<form method="POST" action="https://formspree.io/f/xwpqprdr">
-									<div class="row gtr-uniform gtr-50">
-										<div class="col-6 col-12-xsmall"><input type="text" name="name" id="name" placeholder="Your Name" required/></div>
-										<div class="col-6 col-12-xsmall"><input type="email" name="email" id="email" placeholder="Your Email" required/></div>
-										<div class="col-12"><textarea name="message" id="message" placeholder="Message" rows="4" required></textarea></div>
-									</div>
-								</form>
-								<ul class="actions">
-									<li><input type="submit" value="Send Message" class="primary"/></li>
-								</ul>
-							</div>
-						</div>
+					  <h2>Get In Touch</h2>
+					  <div class="row">
+					    <div class="col-8 col-12-small">
+					      <form id="contact-form">
+					        <div class="row gtr-uniform gtr-50">
+					          <div class="col-6 col-12-xsmall">
+					            <input type="text" name="name" id="name" placeholder="Your Name" required />
+					          </div>
+					          <div class="col-6 col-12-xsmall">
+					            <input type="email" name="email" id="email" placeholder="Your Email" required />
+					          </div>
+					          <div class="col-12">
+					            <textarea name="message" id="message" placeholder="Message" rows="4" required></textarea>
+					          </div>
+					          <div class="col-12">
+					            <ul class="actions">
+					              <li><input type="submit" value="Send Message" class="primary" /></li>
+					            </ul>
+					          </div>
+					          <div class="col-12">
+					            <p id="success-message" style="display:none; color:green;">Thanks! Your message has been sent.</p>
+					          </div>
+					        </div>
+					      </form>
+					    </div>
+					  </div>
 					</section>
 
 				<!-- Four -->
@@ -447,6 +458,33 @@ print 'It took ' + i + ' iterations to sort the deck.';</code></pre>
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+	<script>
+		const form = document.getElementById("contact-form");
+		form.addEventListener("submit", function(e) {
+    e.preventDefault(); // prevent actual form submission
+
+    const name = document.getElementById("name").value;
+    const email = document.getElementById("email").value;
+    const message = document.getElementById("message").value;
+
+    fetch("https://script.google.com/macros/s/AKfycbxlJf0Yw35oyHQFv0mtkdHXYZOwqVUDHGtc_Sp043kr7o1a1A7E_CkCUxv32PLSeRLBEQ/exec", {
+      method: "POST",
+      body: JSON.stringify({ name, email, message }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert("Message sent! Thank you.");
+      form.reset();
+    })
+    .catch(error => {
+      alert("Error sending message.");
+      console.error(error);
+    });
+  });
+</script>
 
 	</body>
 </html>
